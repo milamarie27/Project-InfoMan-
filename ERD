@@ -1,0 +1,102 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
+
+Table User {
+  UserID int [pk, increment]
+  Email varchar [unique, not null]
+  Password varchar [not null]        // hashed password
+  Role enum('Student','Instructor','Admin') [not null]
+  IsActive boolean [default: true]
+  CreatedAt timestamp
+}
+
+
+Table Student {
+  StudentID int [pk, increment]
+  UserID int [ref: > User.UserID]
+  StudentIDNumber varchar [unique, not null]
+  FirstName varchar [not null] 
+  MiddleName varchar [not null] 
+  LastName varchar [not null] 
+  Program varchar [not null] 
+  YearLevel int [not null] 
+  Section varchar [not null] 
+  Status enum('Regular','Irregular') [not null] 
+}
+
+Table Instructor {
+  InstructorID int [pk, increment]
+  FirstName varchar [not null] 
+  MiddleName varchar [not null] 
+  LastName varchar [not null] 
+  UserID int [ref: > User.UserID]
+}
+
+Table Admin {
+  UserID int [ref: > User.UserID]
+  Email varchar [not null, unique]
+  Username varchar [not null, unique]
+  PasswordHash varchar [not null]
+}
+
+Table Term {
+  TermID int [pk, increment] 
+  Semester enum('1st','2nd') [not null] 
+  AcademicYear varchar [not null] 
+  IsActive boolean 
+}
+
+Table Subject {
+  SubjectID int [pk, increment]
+  InstructorID int [ref: > Instructor.InstructorID]
+  SubjectCode varchar [not null] 
+  SubjectName varchar [not null] 
+  Units int 
+}
+
+
+Table Clearance {
+  ClearanceID int [pk, increment]
+  StudentID int [ref: > Student.StudentID]
+  TermID int [ref: > Term.TermID]
+  ClearanceType enum('Departmental','Student')
+  DateRequested date
+  OverallStatus enum('Pending','Completed') [default: 'Pending']
+}
+
+// INSTRUCTOR SIGNATURE PER SUBJECT
+
+Table SubjectClearance {
+  SubjectClearanceID int [pk, increment]
+  ClearanceID int [ref: > Clearance.ClearanceID]
+  SubjectID int [ref: > Subject.SubjectID]
+  InstructorID int [ref: > Instructor.InstructorID]
+  Status enum('Pending','Signed') [default: 'Pending']
+  DateSigned date
+}
+
+
+// OFFICE APPROVALS (Library, Cashier, Registrar, SSG, etc.)
+
+Table ClearanceApproval {
+  ApprovalID int [pk, increment]
+  ClearanceID int [ref: > Clearance.ClearanceID]
+  Status enum('Pending','Approved') [default: 'Pending']
+  Remarks varchar
+  DateApproved date
+}
+
+
+Table Notification {
+  NotificationID int [pk, increment]
+  UserID int [ref: > User.UserID]
+  Message varchar
+  DateSent date
+  IsRead boolean [default: false]
+}
+
+Ref: "User"."Email" < "User"."UserID"
+
+
