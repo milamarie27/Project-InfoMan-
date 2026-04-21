@@ -1,24 +1,21 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using OnlineClearanceSystem.Models;
 
-namespace OnlineClearanceSystem.Controllers;
-
 public class HomeController : Controller
 {
+    private readonly ApplicationDbContext _context;
+
+    public HomeController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
     public IActionResult Index()
     {
-        return View();
-    }
+        bool canConnect = _context.Database.CanConnect();
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        ViewBag.ConnectionStatus = canConnect ? "CONNECTED ✅" : "NOT CONNECTED ❌";
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View();
     }
 }
