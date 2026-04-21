@@ -1,30 +1,29 @@
-using OnlineClearanceSystem.Models;
 using Microsoft.EntityFrameworkCore;
+using OnlineClearanceSystem.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 builder.Services.AddControllersWithViews();
 
-// ✅ Connect to HelioHost MySQL
+// ✅ SAFE CONNECTION STRING (fix null warning)
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new Exception("Connection string 'DefaultConnection' is missing in appsettings.json");
+}
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySQL(connectionString));
 
 var app = builder.Build();
 
-// Middleware
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
 app.UseAuthorization();
 
-// Route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
