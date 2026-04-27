@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CTU - Ginatilan | Subjects Offered</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="subject_offer.css">
+</head>
+<body>
+
+  <!-- ─── SIDEBAR ─── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">C</div>
+      <div class="logo-text">
+        <div class="school-name">CTU - Ginatilan</div>
+        <div class="school-sub">Online Clearance</div>
+      </div>
+    </div>
+
+    <div class="sidebar-profile">
+      <div class="profile-avatar"><i class="fas fa-user"></i></div>
+      <div class="profile-name">Althea Jean Barnes</div>
+      <div class="profile-id">BSIT · ID 7240424</div>
+    </div>
+
+    <div class="sidebar-label">Main</div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="#">
+        <i class="fas fa-th-large"></i> Dashboard
+      </a>
+      <a class="nav-item active" href="#">
+        <i class="fas fa-book-open"></i> Subjects Offered
+      </a>
+      <a class="nav-item" href="#">
+        <i class="fas fa-clipboard-check"></i> Clearance
+      </a>
+      <a class="nav-item" href="#">
+        <i class="fas fa-sitemap"></i> Organization
+      </a>
+      <a class="nav-item" href="#">
+        <i class="fas fa-user-circle"></i> Profile
+      </a>
+      <a class="nav-item" href="#">
+        <i class="fas fa-file-download"></i> Download PDF
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Log-out
+      </div>
+    </div>
+    <div class="sidebar-ay">A.Y. 2025 - 2026</div>
+  </aside>
+
+  <!-- ─── MAIN ─── -->
+  <div class="main">
+
+    <div class="topbar">
+      <div class="year-badge">BSIT - 2nd Year</div>
+      <div class="topbar-icon"><i class="fas fa-bell"></i></div>
+      <div class="topbar-icon"><i class="fas fa-sign-out-alt"></i></div>
+    </div>
+
+    <div class="content">
+      <div class="subjects-card">
+
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="card-title">Subject Offered: A.Y. 2025-2026, 2nd Semester</div>
+          <div class="search-wrap">
+            <i class="fas fa-search"></i>
+            <input class="search-input" type="text" placeholder="Search MG Code, Subject, Desc, or Description" />
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <!-- Table Head -->
+          <div class="table-head">
+            <div class="th">Code</div>
+            <div class="th">Subject</div>
+            <div class="th">Description</div>
+            <div class="th"></div>
+            <div class="th"></div>
+          </div>
+
+          <!-- Table Body -->
+          <div class="table-body">
+            <div class="table-row">
+              <div><span class="row-code">GT-53</span></div>
+              <div class="row-subject">GEC - TCW</div>
+              <div class="row-desc">The Contemporary World</div>
+              <div class="row-instructor"></div>
+              <div></div>
+            </div>
+            <div class="table-row">
+              <div><span class="row-code">GT-54</span></div>
+              <div class="row-subject">PC 223</div>
+              <div class="row-desc">Integrative Programming and Technologies 1</div>
+              <div class="row-instructor">Mr. Ian Cornisan</div>
+              <div>
+                <span class="selected-btn"><i class="fas fa-check"></i> Selected</span>
+              </div>
+            </div>
+            <div class="table-row">
+              <div><span class="row-code">GT-55</span></div>
+              <div class="row-subject">PC 224</div>
+              <div class="row-desc">Networking 1</div>
+              <div class="row-instructor">Mr. Rochell Belvastre</div>
+              <div>
+                <span class="selected-btn"><i class="fas fa-check"></i> Selected</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dropdown Panel (visible in the screenshot) -->
+          <div class="dropdown-panel">
+            <div class="dp-header">
+              <div class="dp-th">MG Code</div>
+              <div class="dp-th">Subject Code</div>
+              <div class="dp-th">Description</div>
+            </div>
+            <div class="dp-row">
+              <div class="dp-code">GT51</div>
+              <div class="dp-subject">GEC-E</div>
+              <div class="dp-desc">Ethics <span class="dp-action" style="float:right"><button class="dp-add-btn"><i class="fas fa-plus"></i></button></span></div>
+            </div>
+            <div class="dp-row">
+              <div class="dp-code">GT52</div>
+              <div class="dp-subject">GEC-ES</div>
+              <div class="dp-desc">Environmental Science <span class="dp-action" style="float:right"><button class="dp-add-btn"><i class="fas fa-plus"></i></button></span></div>
+            </div>
+            <div class="dp-row">
+              <div class="dp-code">GT3X</div>
+              <div class="dp-subject">GEC-LWR</div>
+              <div class="dp-desc">Life and Works of Rizal <span class="dp-action" style="float:right"><button class="dp-add-btn"><i class="fas fa-plus"></i></button></span></div>
+            </div>
+          </div>
+
+        </div><!-- /table-container -->
+
+        <!-- Save Button -->
+        <div class="save-wrap">
+          <button class="save-btn">SAVE</button>
+        </div>
+
+      </div><!-- /subjects-card -->
+    </div><!-- /content -->
+  </div><!-- /main -->
+
+</body>
+</html>
