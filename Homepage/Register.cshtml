@@ -1,0 +1,141 @@
+@model CTUGClearance.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Registration";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+    string role = ViewData["Role"]?.ToString() ?? "Student";
+}
+
+<a href="/Account/SelectRole" class="back-link">← Back</a>
+
+<h2 class="auth-title" style="margin-top:24px;">Registration Form</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert-danger-sm">
+        Please correct the errors below and try again.
+    </div>
+}
+
+<form asp-action="Register" asp-controller="Account" method="post" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Role" value="@role" />
+
+    <div class="row g-3">
+        <!-- LEFT COLUMN -->
+        <div class="col-6">
+            <label class="form-label-sm" asp-for="FirstName">First Name</label>
+            <input asp-for="FirstName" class="form-input" type="text" placeholder="First Name" />
+            <span asp-validation-for="FirstName" class="field-error"></span>
+        </div>
+
+        <!-- RIGHT COLUMN: Status (Student) or Department (Instructor) -->
+        <div class="col-6">
+            @if (role == "Student")
+            {
+                <label class="form-label-sm" asp-for="Status">Status</label>
+                <div class="select-wrapper">
+                    <select asp-for="Status" class="form-input">
+                        <option value="">Select Status</option>
+                        <option value="Regular">Regular</option>
+                        <option value="Irregular">Irregular</option>
+                        <option value="Transferee">Transferee</option>
+                        <option value="Returnee">Returnee</option>
+                    </select>
+                </div>
+                <span asp-validation-for="Status" class="field-error"></span>
+            }
+            else
+            {
+                <label class="form-label-sm" asp-for="Department">Department</label>
+                <input asp-for="Department" class="form-input" type="text" placeholder="e.g. BSIT Department" />
+                <span asp-validation-for="Department" class="field-error"></span>
+            }
+        </div>
+
+        <div class="col-6">
+            <label class="form-label-sm" asp-for="MiddleInitial">Middle Initial</label>
+            <input asp-for="MiddleInitial" class="form-input" type="text" placeholder="M.I." maxlength="3" />
+        </div>
+
+        <div class="col-6">
+            <label class="form-label-sm" asp-for="Password">Password</label>
+            <input asp-for="Password" class="form-input" type="password" placeholder="Create a password" autocomplete="new-password" />
+            <span asp-validation-for="Password" class="field-error"></span>
+        </div>
+
+        <div class="col-6">
+            <label class="form-label-sm" asp-for="LastName">Last Name</label>
+            <input asp-for="LastName" class="form-input" type="text" placeholder="Last Name" />
+            <span asp-validation-for="LastName" class="field-error"></span>
+        </div>
+
+        <div class="col-6">
+            <label class="form-label-sm" asp-for="ConfirmPassword">Confirm Password</label>
+            <input asp-for="ConfirmPassword" class="form-input" type="password" placeholder="Repeat password" autocomplete="new-password" />
+            <span asp-validation-for="ConfirmPassword" class="field-error"></span>
+        </div>
+
+        <div class="col-12">
+            <label class="form-label-sm" asp-for="SchoolIdNumber">School ID Number</label>
+            <input asp-for="SchoolIdNumber" class="form-input" type="text" placeholder="e.g. 2024-00001" />
+            <span asp-validation-for="SchoolIdNumber" class="field-error"></span>
+        </div>
+
+        @if (role == "Student")
+        {
+            <div class="col-6">
+                <label class="form-label-sm" asp-for="YearLevel">Year Level</label>
+                <div class="select-wrapper">
+                    <select asp-for="YearLevel" class="form-input">
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <span asp-validation-for="YearLevel" class="field-error"></span>
+            </div>
+
+            <div class="col-6">
+                <label class="form-label-sm" asp-for="Course">Course</label>
+                <div class="select-wrapper">
+                    <select asp-for="Course" class="form-input">
+                        <option value="">Select Course</option>
+                        <option value="BSIT">BSIT</option>
+                        <option value="BSCS">BSCS</option>
+                        <option value="BSIS">BSIS</option>
+                        <option value="BSED">BSED</option>
+                        <option value="BSBA">BSBA</option>
+                        <option value="BSHM">BSHM</option>
+                    </select>
+                </div>
+                <span asp-validation-for="Course" class="field-error"></span>
+            </div>
+        }
+    </div>
+
+    <div style="margin-top:24px;text-align:right;">
+        <button type="submit" class="btn-primary-green" style="width:auto;padding:10px 32px;">
+            Register
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+<script>
+    // Password match validation
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const pw = document.querySelector('input[name="Password"]');
+        const cpw = document.querySelector('input[name="ConfirmPassword"]');
+        if (pw && cpw && pw.value !== cpw.value) {
+            cpw.style.borderColor = '#dc3545';
+            cpw.setCustomValidity('Passwords do not match');
+            e.preventDefault();
+        } else if (cpw) {
+            cpw.style.borderColor = '';
+            cpw.setCustomValidity('');
+        }
+    });
+</script>
+}

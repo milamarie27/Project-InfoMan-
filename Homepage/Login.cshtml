@@ -1,0 +1,68 @@
+@model CTUGClearance.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<h2 class="auth-title">Account Login</h2>
+<p class="auth-sub">If you are already a member you can login with<br />your ID number and password.</p>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert-danger-sm">
+        <strong>⚠</strong> @ViewBag.ErrorMessage
+    </div>
+}
+
+<form asp-action="Login" asp-controller="Account" method="post" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Role" id="selectedRole" />
+
+    <div style="margin-bottom:16px;">
+        <label class="form-label-sm" asp-for="IdNumber">ID Number</label>
+        <input asp-for="IdNumber"
+               class="form-input"
+               type="text"
+               placeholder="e.g. 7240424"
+               autocomplete="username" />
+        <span asp-validation-for="IdNumber" class="field-error"></span>
+    </div>
+
+    <div style="margin-bottom:14px;">
+        <label class="form-label-sm" asp-for="Password">Password</label>
+        <input asp-for="Password"
+               class="form-input"
+               type="password"
+               placeholder="Enter your password"
+               autocomplete="current-password" />
+        <span asp-validation-for="Password" class="field-error"></span>
+    </div>
+
+    <div style="margin-bottom:24px;">
+        <label class="form-check-sm">
+            <input asp-for="RememberMe" type="checkbox" checked />
+            Remember me
+        </label>
+    </div>
+
+    <button type="submit" class="btn-primary-green">Log-in Account</button>
+</form>
+
+<p style="text-align:center;font-size:13px;color:#888;margin-top:20px;">
+    Don't have an account? &nbsp;
+    <a href="/Account/SelectRole" style="color:#28a745;font-weight:700;text-decoration:none;">Register here</a>
+</p>
+
+@section Scripts {
+<script>
+    // Validate client-side before submit
+    document.querySelector('form').addEventListener('submit', function(e) {
+        let valid = true;
+        const id = document.querySelector('input[name="IdNumber"]');
+        const pw = document.querySelector('input[name="Password"]');
+        if (!id.value.trim()) { id.style.borderColor='#dc3545'; valid = false; } else { id.style.borderColor=''; }
+        if (!pw.value.trim()) { pw.style.borderColor='#dc3545'; valid = false; } else { pw.style.borderColor=''; }
+        if (!valid) e.preventDefault();
+    });
+</script>
+}
